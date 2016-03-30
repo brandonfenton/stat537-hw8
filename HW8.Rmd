@@ -21,7 +21,7 @@ For this work, we will continue to drop pack7 and pack8 which are almost always 
 require(pander)
 require(psych)
 
-panderOptions('round', 5)
+# panderOptions('round', 5)
 
 # tc1<-read.csv("https://montana.box.com/shared/static/m5tv7r4ce7mw3w0vyqu0q7i1f8jflkkc.csv",header=T) #Data set without any modifications from https://knb.ecoinformatics.org/#view/doi:10.5063/F1DZ067F
 tc1 <- read.csv("tc1.csv")
@@ -62,7 +62,7 @@ fa.diagram(fa.varimax, simple=T)
 
 null model: two factors are sufficient
 
-test statistic: `r fa.varimax$STATISTIC`
+test statistic: $`r fa.varimax$STATISTIC`$
 
 distribution under the null $\chi^2_{`r fa.varimax$null.dof`}$ 
 
