@@ -62,7 +62,7 @@ fa.diagram(fa.varimax, simple=T)
 
 null model: two factors are sufficient
 
-test statistic: `r fa.varimax$STATISTIC`
+test statistic: $`r fa.varimax$STATISTIC`$
 
 distribution under the null $\chi^2_{`r fa.varimax$null.dof`}$ 
 
