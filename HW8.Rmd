@@ -7,6 +7,8 @@ output:
   word_document: null
 ---
 
+
+
 Due on Wednesday, April 6, at 5 pm. You can work in a group of up to three but at least one group member needs to be different from the last assignment.
 
 Continuing with Chang, Hansen, and Piekielek (2014), we will explore EFA of the variables.
@@ -14,7 +16,12 @@ Continuing with Chang, Hansen, and Piekielek (2014), we will explore EFA of the 
 For this work, we will continue to drop pack7 and pack8 which are almost always 0s (see code below).
 
 
-```{r, warning=F,message=F}
+```{r setup, warning=F,message=F}
+# load packages and data
+require(pander)
+require(psych)
+
+panderOptions('round', 5)
 
 # tc1<-read.csv("https://montana.box.com/shared/static/m5tv7r4ce7mw3w0vyqu0q7i1f8jflkkc.csv",header=T) #Data set without any modifications from https://knb.ecoinformatics.org/#view/doi:10.5063/F1DZ067F
 tc1 <- read.csv("tc1.csv")
@@ -33,7 +40,7 @@ require(GPArotation) #Or else you'll have problems with fa()
 1) Use fa.parallel from the psych package to consider how many factors you should use with the Q=46 variables. Discuss the results. How many factors would you use and why?
 
 ```{r p1_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-
+fa.parallel(tc2)
 
 ```
 
@@ -41,10 +48,25 @@ require(GPArotation) #Or else you'll have problems with fa()
 
 ```{r p2_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
+fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
+```
 
+```{r p2_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+
+fa.diagram(fa.varimax, simple=T)
 ```
 
 3) What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value.
+
+<!-- not sure if we should make a table or write words /--> 
+
+null model: two factors are sufficient
+
+test statistic: `r fa.varimax$STATISTIC`
+
+distribution under the null $\chi^2_{`r fa.varimax$null.dof`}$ 
+
+p-value: `r fa.varimax$PVAL`
 
 ```{r p3_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
@@ -56,7 +78,12 @@ require(GPArotation) #Or else you'll have problems with fa()
 5) Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram.
 
 ```{r p5_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+fa.diagram(fa.varimax, simple=T, cut = 0.4)
 
+```
+
+```{r p5_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+fa.diagram(fa.varimax, simple=T, cut = 0.5)
 
 ```
 
@@ -64,7 +91,12 @@ require(GPArotation) #Or else you'll have problems with fa()
 
 ```{r p6_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
+fa.promax <- fa(tc2, rotate="promax", nfactors=2)
+```
 
+```{r p6_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+
+fa.diagram(fa.promax, simple=T)
 ```
 
 7) Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result.
@@ -76,8 +108,10 @@ require(GPArotation) #Or else you'll have problems with fa()
 
 8) Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions? 
 
-```{r p8_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+The default cutoff is 0.3.
 
+```{r p8_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+fa.diagram(fa.promax, simple=F)
 
 ```
 
@@ -96,6 +130,9 @@ Problem 3:
 
 Problem 5:
 ```{r a5, ref.label='p5_a', eval=F}
+```
+
+```{r a5b, ref.label='p5_b', eval=F}
 ```
 
 Problem 6:
