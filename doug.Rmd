@@ -1,0 +1,103 @@
+---
+title: "doug"
+author: "Anonymous"
+date: "March 30, 2017"
+output: html_document
+---
+
+```{r setup, warning=F,message=F}
+# load packages and data
+require(pander)
+require(psych)
+
+# panderOptions('round', 5)
+
+# tc1<-read.csv("https://montana.box.com/shared/static/m5tv7r4ce7mw3w0vyqu0q7i1f8jflkkc.csv",header=T) #Data set without any modifications from https://knb.ecoinformatics.org/#view/doi:10.5063/F1DZ067F
+tc1 <- read.csv("tc1.csv")
+tc1$responsef<-factor(tc1$response)
+tc1_r<-tc1[,c(4:39,64:75)]
+
+table(tc1_r$pack7)
+table(tc1_r$pack8)
+
+tc2<-tc1_r[,-c(43,44)]
+
+require(GPArotation) #Or else you'll have problems with fa()
+
+```
+
+1. The latent root criterion suggests using the number of factors equal to the number of eigenvalues that are greater than 1. If we use that strategy, we would use four factors. If we consider the proportion of the total variance explained divided by the sum of the total variance of the variables, we would find that the first eigenvalue is sufficient to get the proportion of variability over 90%. If we consider the the plot formed from Horn's parallel analysis, we would consider between 5 factors. 
+
+```{r p1_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+fa2 <- fa.parallel(tc2)
+# str(fa2)
+# fa2$fa.values
+# cumsum((fa2$fa.values[1:6])^2)/sum((fa2$fa.values[1:6])^2)
+
+```
+
+
+2. There are no temperatures in MR2. MR1 isn't exclusively temperatures though; it also has precipitations in the late spring and summer (except June???) and some snowpacks (typically in warmer months). Maybe MR2 is "snow-in-ya-face" and MR1 is "hows-it-feelin'-outside". 
+
+```{r p2_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+
+fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
+# str(fa.varimax)
+
+# fa.varimax$loadings
+# fa.varimax$Structure
+```
+
+```{r p2_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+
+fa.diagram(fa.varimax, simple=T, rsize=10)
+```
+
+3. In testing whether two factors are sufficient (null model) or 3 or more factors are needed (alternative model) we found a test statistic of $`r fa.varimax$STATISTIC`$, which under the null model follows a $\chi^2_{`r fa.varimax$null.dof`}$ distribution. This results in a p-value < `r fa.varimax$PVAL`. We find very strong evidence that 3 or more factors are needed for these data.
+
+4. I think the first MR explains 62% of the total variace and the second explains 12% of the total variance. The uniqueness values are all higher in the first MR I think as well. Those would imply the first MR is least explained right? I think that would make sense given the variables it contains. (I was stuggling to come up with where to look on this one...)
+
+```{r p4_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+# round(fa.varimax$residual,2)
+# fa.varimax$uniquenesses
+# round(fa.varimax$e.values/sum(fa.varimax$e.values),2)
+
+```
+
+5. The precipation in June was left off of MR2 as was precipation in December for a cut of 0.4. The precipations in May and August were dropped from MR1 for a cut of 0.5. Names may not need to change?
+
+```{r p5_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+fa.diagram(fa.varimax, simple=T, cut = 0.4)
+
+```
+
+```{r p5_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+fa.diagram(fa.varimax, simple=T, cut = 0.5)
+
+```
+
+6. Let's see. They appear to be the same manifest variables but now are negatively correlated.
+
+```{r p6_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+
+fa.promax <- fa(tc2, rotate="promax", nfactors=2)
+```
+
+```{r p6_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+
+fa.diagram(fa.promax, simple=T)
+```
+
+7. I think the first MR explains 62% of the total variace and the second explains 12% of the total variance, same as for the varimax rotation. Again, the uniqueness values are all higher in the first MR I think as well (is that important?). The amount of variation stayed the same, at least to two decimal places. It takes the varimax rotation and transforms it (is there a way to find the power the rotation matrix was raised to? is that even important?).
+
+```{r p7_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8, eval=F}
+# round(fa.promax$residual,2)
+# fa.promax$uniquenesses
+# round(fa.promax$e.values/sum(fa.promax$e.values),2)
+# fa.promax$rot.mat
+# fa.varimax$rot.mat
+```
+
+8. Snow pack in may was included in both manifest variables.
+
+
