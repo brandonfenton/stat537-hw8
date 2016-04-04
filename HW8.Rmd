@@ -125,36 +125,35 @@ fa.diagram(fa.promax, simple=F)
 
 ## R Code Appendix:
 Problem 1:
-```{r a1, ref.label='p1_a', eval=F}
+```{r a1, ref.label='p1_a', eval=F, echo=T}
 ```
 
-```{r b1, ref.label='p1_b', eval=F}
+```{r b1, ref.label='p1_b', eval=F, echo=T}
 ```
 
 Problem 2:
-```{r a2, ref.label='p2_a', eval=F}
+```{r a2, ref.label='p2_a', eval=F, echo=T}
 ```
 
 Problem 3:
-```{r a3, ref.label='p3_a', eval=F}
+```{r a3, ref.label='p3_a', eval=F, echo=T}
 ```
 
 Problem 5:
-```{r a5, ref.label='p5_a', eval=F}
+```{r a5, ref.label='p5_a', eval=F, echo=T}
 ```
 
-```{r a5b, ref.label='p5_b', eval=F}
+```{r a5b, ref.label='p5_b', eval=F, echo=T}
 ```
 
 Problem 6:
-```{r a6, ref.label='p6_a', eval=F}
+```{r a6, ref.label='p6_a', eval=F, echo=T}
 ```
 
 Problem 7:
-```{r a7, ref.label='p7_a', eval=F}
+```{r a7, ref.label='p7_a', eval=F, echo=T}
 ```
 
 Problem 8:
-```{r a8, ref.label='p8_a', eval=F}
+```{r a8, ref.label='p8_a', eval=F, echo=T}
 ```
-
