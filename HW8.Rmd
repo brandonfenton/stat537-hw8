@@ -1,7 +1,7 @@
 ---
 title: "STAT 537 HW 8"
-author: "Mark Greenwood"
-date: ''
+author: "Doug Anderson and Brandon Fenton and Kenny Flagg"
+date: 'April 6, 2016'
 output:
   pdf_document: default
   word_document: null
@@ -9,27 +9,28 @@ output:
 
 
 
-Due on Wednesday, April 6, at 5 pm. You can work in a group of up to three but at least one group member needs to be different from the last assignment.
+_Due on Wednesday, April 6, at 5 pm. You can work in a group of up to three but at least one group member needs to be different from the last assignment._
 
-Continuing with Chang, Hansen, and Piekielek (2014), we will explore EFA of the variables.
+_Continuing with Chang, Hansen, and Piekielek (2014), we will explore EFA of the variables._
 
-For this work, we will continue to drop pack7 and pack8 which are almost always 0s (see code below).
+_For this work, we will continue to drop pack7 and pack8 which are almost always 0s (see code below)._
 
 
-```{r setup, warning=F,message=F}
+```{r setup, echo=F, warning=F,message=F}
 # load packages and data
 require(pander)
 require(psych)
 
-# panderOptions('round', 5)
+knitr::opts_chunk$set(echo=F, warning=F, message=F, cache=T, comment=NA, size="fotnotesize", fig.width=6, fig.height=4, fig.align="center", dev="pdf", dev.args=list(pointsize=8))
+panderOptions("round", 5)
 
 # tc1<-read.csv("https://montana.box.com/shared/static/m5tv7r4ce7mw3w0vyqu0q7i1f8jflkkc.csv",header=T) #Data set without any modifications from https://knb.ecoinformatics.org/#view/doi:10.5063/F1DZ067F
 tc1 <- read.csv("tc1.csv")
 tc1$responsef<-factor(tc1$response)
 tc1_r<-tc1[,c(4:39,64:75)]
 
-table(tc1_r$pack7)
-table(tc1_r$pack8)
+#table(tc1_r$pack7)
+#table(tc1_r$pack8)
 
 tc2<-tc1_r[,-c(43,44)]
 
@@ -37,14 +38,21 @@ require(GPArotation) #Or else you'll have problems with fa()
 
 ```
 
-1) Use fa.parallel from the psych package to consider how many factors you should use with the Q=46 variables. Discuss the results. How many factors would you use and why?
+1) _Use fa.parallel from the psych package to consider how many factors you should use with the Q=46 variables. Discuss the results. How many factors would you use and why?_
 
-```{r p1_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-fa.parallel(tc2)
-
+```{r p1_a}
+fa2 <- fa.parallel(tc2)
+```
+```{r p1_b}
+eigentable <- rbind(Eigenvalue = fa2$fa.values,
+                    Proportion = (fa2$fa.values^2)/sum(fa2$fa.values^2),
+                    `Cum. Prop.` = cumsum(fa2$fa.values^2)/sum(fa2$fa.values)^2)
+pander(eigentable[,1:8], caption = "First 8 FA Eigenvalues")
 ```
 
-2) Generate a varimax rotated two-factor solution and provide a path diagram with simple=T as an option. Name and interpret the two factors using a simple structure interpretation.
+The latent root criterion suggests using the number of factors equal to the number of eigenvalues that are greater than 1. If we use that strategy, we would use four factors. If we consider the proportion of the total variance explained divided by the sum of the total variance of the variables, we would find that the first eigenvalue is sufficient to get the proportion of variability over 90%. If we consider the the plot formed from Horn's parallel analysis, we would consider between 5 factors. 
+
+2) _Generate a varimax rotated two-factor solution and provide a path diagram with simple=T as an option. Name and interpret the two factors using a simple structure interpretation._
 
 ```{r p2_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
@@ -56,7 +64,7 @@ fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
 fa.diagram(fa.varimax, simple=T)
 ```
 
-3) What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value.
+3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
 <!-- not sure if we should make a table or write words /--> 
 
@@ -73,9 +81,9 @@ p-value: `r fa.varimax$PVAL`
 
 ```
 
-4) In this solution, which two manifest variables are least explained? How did you determine this?
+4) _In this solution, which two manifest variables are least explained? How did you determine this?_
 
-5) Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram.
+5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
 ```{r p5_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 fa.diagram(fa.varimax, simple=T, cut = 0.4)
@@ -87,7 +95,7 @@ fa.diagram(fa.varimax, simple=T, cut = 0.5)
 
 ```
 
-6) Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version.
+6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
 
 ```{r p6_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
@@ -99,14 +107,14 @@ fa.promax <- fa(tc2, rotate="promax", nfactors=2)
 fa.diagram(fa.promax, simple=T)
 ```
 
-7) Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result.
+7) _Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result._
 
 ```{r p7_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
 
 ```
 
-8) Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions? 
+8) _Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions?_
 
 The default cutoff is 0.3.
 
@@ -118,6 +126,9 @@ fa.diagram(fa.promax, simple=F)
 ## R Code Appendix:
 Problem 1:
 ```{r a1, ref.label='p1_a', eval=F}
+```
+
+```{r b1, ref.label='p1_b', eval=F}
 ```
 
 Problem 2:
