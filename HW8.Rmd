@@ -87,6 +87,8 @@ fa.diagram(fa.varimax, simple=F, cut = 0.5)
 mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 ```
 
+The pattern of which variables are associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness."
+
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
 
 ```{r p6_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
