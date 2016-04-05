@@ -63,15 +63,10 @@ There are no temperatures in MR2. MR1 isn not exclusively temperatures; it also 
 
 3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
-<!-- not sure if we should make a table or write words /--> 
+The likelihood ratio test evaluates the data under the null model that two factors are sufficient, with a distributional assumption of $\chi^2_{`r fa.varimax$null.dof`}$.  The test statistic is $\chi^2_{`r fa.varimax$dof`} = `r fa.varimax$STATISTIC`$, and the resultant p-value is less than 0.0001, suggesting that two factors are not sufficient for these data.
 
-null model: two factors are sufficient
 
-test statistic: $`r fa.varimax$STATISTIC`$
 
-distribution under the null $\chi^2_{`r fa.varimax$null.dof`}$ 
-
-p-value: `r fa.varimax$PVAL`
 
 ```{r p3_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
