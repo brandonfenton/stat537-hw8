@@ -98,17 +98,12 @@ fa.diagram(fa.varimax, simple=F, cut = 0.5)
 mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 ```
 
-The pattern of which variables are associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness." The big difference is that the simple=F option allows
+The pattern of which variables are most closely associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness." The big difference is that the simple=F option allows variables to be linked to both factors, greatly complicating the interpretation. This is remedied by increasing the cutoff, omitting variables which are weakly associated with one or both factors. There is an associated decrease in parsimony, since it is implie that these variables correspond to additional latent factors that we have not accounted for.
 
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
 
-```{r p6_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-
+```{r p6_a, dependon="p1_a", fig.height=3, fig.width=3, out.width="4.5in", out.height="4.5in"}
 fa.promax <- fa(tc2, rotate="promax", nfactors=2)
-```
-
-```{r p6_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-
 fa.diagram(fa.promax, simple=T)
 ```
 
@@ -144,9 +139,6 @@ Problem 4:
 
 Problem 5:
 ```{r a5, ref.label='p5_a', eval=F, echo=T}
-```
-
-```{r a5b, ref.label='p5_b', eval=F, echo=T}
 ```
 
 Problem 6:
