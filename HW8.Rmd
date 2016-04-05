@@ -68,12 +68,22 @@ The likelihood ratio test evaluates the data under the null model that two facto
 
 
 
-```{r p3_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
 
-
-```
 
 4) _In this solution, which two manifest variables are least explained? How did you determine this?_
+
+```{r p4_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+u.vals <- sort(fa.varimax$uniquenesses, decreasing = T)
+top.uv <- t(data.frame(u.vals[1:8]))
+rownames(top.uv) <- "Uniqueness"
+emphasize.strong.cols(c(1,2))
+
+pander(top.uv, caption = "First 8 Uniquenesses")
+
+```
+The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.
+
+TODO: explain uniquenesses more
 
 5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
@@ -125,8 +135,8 @@ Problem 2:
 ```{r a2, ref.label='p2_a', eval=F, echo=T}
 ```
 
-Problem 3:
-```{r a3, ref.label='p3_a', eval=F, echo=T}
+Problem 4:
+```{r a4, ref.label='p4_a', eval=F, echo=T}
 ```
 
 Problem 5:
