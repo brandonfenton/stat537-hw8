@@ -83,6 +83,7 @@ emphasize.strong.cols(c(1,2))
 pander(top.uv, caption = "First 8 Uniquenesses")
 
 ```
+
 The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.
 
 TODO: explain uniquenesses more
