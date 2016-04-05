@@ -54,12 +54,14 @@ The latent root criterion suggests using the number of factors equal to the numb
 
 2) _Generate a varimax rotated two-factor solution and provide a path diagram with simple=T as an option. Name and interpret the two factors using a simple structure interpretation._
 
-```{r p2_a, dependon="p1_b", fig.width=3}
+```{r p2_a, dependon="p1_a", fig.height=3, fig.width=3, out.width="4.5in", out.height="4.5in"}
 fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
 fa.diagram(fa.varimax, simple=T)
 ```
 
-There are no temperatures in MR2. MR1 isn not exclusively temperatures; it also has precipitations in the late spring and summer (except June???) and some snowpacks (typically in warmer months). Maybe MR2 is "snow-in-ya-face" and MR1 is "hows-it-feelin'-outside".
+MR1 is positively associated with all of the temperature variables, and has negative associations with the summer snowpack and precipitation variables (with the exception of June precipitation). This is the overall temparature factor.
+
+MR2 is positively associated with all the remaining variables; however, the association with June precipitation is weak ($\lambda=0.4)$. The other variables are precipitation and snowpack for fall, winter, and spring, so MR2 is the winteriness factor.
 
 3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
@@ -87,14 +89,12 @@ TODO: explain uniquenesses more
 
 5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
-```{r p5_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-fa.diagram(fa.varimax, simple=T, cut = 0.4)
-
-```
-
-```{r p5_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-fa.diagram(fa.varimax, simple=T, cut = 0.5)
-
+```{r p5_a, dependon="p2_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
+par(mfrow = c(1, 2))
+fa.diagram(fa.varimax, simple=F, cut = 0.4)
+mtext(expression("Cutoff: "*lambda==0.4), 3, 1)
+fa.diagram(fa.varimax, simple=F, cut = 0.5)
+mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 ```
 
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
