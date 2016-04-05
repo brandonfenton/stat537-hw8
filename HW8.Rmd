@@ -54,7 +54,7 @@ The latent root criterion suggests using the number of factors equal to the numb
 
 2) _Generate a varimax rotated two-factor solution and provide a path diagram with simple=T as an option. Name and interpret the two factors using a simple structure interpretation._
 
-```{r p2_a, dependon="p1_b", fig.width=3}
+```{r p2_a, dependon="p1_a", fig.height=3, fig.width=3, out.width="4.5in", out.height="4.5in"}
 fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
 fa.diagram(fa.varimax, simple=T)
 ```
@@ -79,14 +79,12 @@ The likelihood ratio test evaluates the data under the null model that two facto
 
 5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
-```{r p5_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-fa.diagram(fa.varimax, simple=T, cut = 0.4)
-
-```
-
-```{r p5_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-fa.diagram(fa.varimax, simple=T, cut = 0.5)
-
+```{r p5_a, dependon="p2_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
+par(mfrow = c(1, 2))
+fa.diagram(fa.varimax, simple=F, cut = 0.4)
+mtext(expression("Cutoff: "*lambda==0.4), 3, 1)
+fa.diagram(fa.varimax, simple=F, cut = 0.5)
+mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 ```
 
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
