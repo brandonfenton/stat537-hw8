@@ -59,7 +59,9 @@ fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
 fa.diagram(fa.varimax, simple=T)
 ```
 
-There are no temperatures in MR2. MR1 isn not exclusively temperatures; it also has precipitations in the late spring and summer (except June???) and some snowpacks (typically in warmer months). Maybe MR2 is "snow-in-ya-face" and MR1 is "hows-it-feelin'-outside".
+MR1 is positively associated with all of the temperature variables, and has negative associations with the summer snowpack and precipitation variables (with the exception of June precipitation). This is the overall temparature factor.
+
+MR2 is positively associated with all the remaining variables; however, the association with June precipitation is weak ($\lambda=0.4)$. The other variables are precipitation and snowpack for fall, winter, and spring, so MR2 is the winteriness factor.
 
 3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
