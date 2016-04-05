@@ -21,7 +21,7 @@ _For this work, we will continue to drop pack7 and pack8 which are almost always
 require(pander)
 require(psych)
 
-knitr::opts_chunk$set(echo=F, warning=F, message=F, cache=T, comment=NA, size="fotnotesize", fig.width=6, fig.height=4, fig.align="center", dev="pdf", dev.args=list(pointsize=8))
+knitr::opts_chunk$set(echo=F, warning=F, message=F, cache=T, comment=NA, size="footnotesize", fig.width=6, fig.height=4, fig.align="center", dev="pdf", dev.args=list(pointsize=8))
 panderOptions("round", 5)
 
 # tc1<-read.csv("https://montana.box.com/shared/static/m5tv7r4ce7mw3w0vyqu0q7i1f8jflkkc.csv",header=T) #Data set without any modifications from https://knb.ecoinformatics.org/#view/doi:10.5063/F1DZ067F
@@ -55,14 +55,11 @@ The latent root criterion suggests using the number of factors equal to the numb
 2) _Generate a varimax rotated two-factor solution and provide a path diagram with simple=T as an option. Name and interpret the two factors using a simple structure interpretation._
 
 ```{r p2_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-
 fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
-```
-
-```{r p2_b, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
-
 fa.diagram(fa.varimax, simple=T)
 ```
+
+There are no temperatures in MR2. MR1 isn't exclusively temperatures though; it also has precipitations in the late spring and summer (except June???) and some snowpacks (typically in warmer months). Maybe MR2 is "snow-in-ya-face" and MR1 is "hows-it-feelin'-outside".
 
 3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
@@ -128,8 +125,6 @@ Problem 1:
 ```{r a1, ref.label='p1_a', eval=F, echo=T}
 ```
 
-```{r b1, ref.label='p1_b', eval=F, echo=T}
-```
 
 Problem 2:
 ```{r a2, ref.label='p2_a', eval=F, echo=T}
