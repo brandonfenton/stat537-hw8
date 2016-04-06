@@ -80,9 +80,7 @@ emphasize.strong.cols(c(1,2))
 pander(top.uv, caption = "First 8 Uniquenesses")
 ```
 
-The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.
-
-TODO: explain uniquenesses more
+The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.  Since $\hat{u}_i^2= 1 - \hat{h}_i^2$, where $\hat{h}_i^2$ is the communality of the ith variable, we could also arrive at this conclusion by finding the two smallest communalities.
 
 5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
