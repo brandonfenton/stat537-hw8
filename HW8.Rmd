@@ -124,11 +124,15 @@ The uniquenesses do not change because the rotation is simply a change of basis 
 
 8) _Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions?_
 
-The default cutoff is 0.3.
-
-```{r p8_a}
+```{r p8_a, dependon="p6_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
+par(mfrow = c(1, 2))
+fa.diagram(fa.varimax, simple=F)
+mtext("Varimax", 3, 1)
 fa.diagram(fa.promax, simple=F)
+mtext("Promax", 3, 1)
 ```
+
+By default, loadings less than 0.3 in absolute value are not shown.
 
 ## R Code Appendix:
 Problem 1:
