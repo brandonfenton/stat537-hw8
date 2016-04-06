@@ -39,12 +39,16 @@ require(GPArotation) #Or else you'll have problems with fa()
 
 1) _Use fa.parallel from the psych package to consider how many factors you should use with the Q=46 variables. Discuss the results. How many factors would you use and why?_
 
-```{r p1_a}
+```{r p1_a, results="asis"}
 fa2 <- fa.parallel(tc2)
+```
+\hspace{-0.4em}.
+
+```{r p1_b, dependson="p1_a", results="asis"}
 eigentable <- rbind(Eigenvalue = fa2$fa.values,
                     Proportion = (fa2$fa.values^2)/sum(fa2$fa.values^2),
                     `Cum. Prop.` = cumsum(fa2$fa.values^2)/sum(fa2$fa.values)^2)
-pander(eigentable[,1:8], caption = "First 8 FA Eigenvalues")
+pander(eigentable[,1:7], caption = "First 7 FA Eigenvalues")
 ```
 
 The latent root criterion suggests using the number of factors equal to the number of eigenvalues that are greater than 1. If we use that strategy, we would use four factors. If we consider the proportion of the total variance explained divided by the sum of the total variance of the variables, we would find that the first eigenvalue is sufficient to get the proportion of variability over 90%. If we consider the the plot formed from Horn's parallel analysis, we would consider between 5 factors. 
@@ -68,7 +72,7 @@ The likelihood ratio test evaluates the data under the null model that two facto
 
 
 
-
+\pagebreak
 4) _In this solution, which two manifest variables are least explained? How did you determine this?_
 
 ```{r p4_a}
@@ -94,6 +98,7 @@ mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 
 The pattern of which variables are most closely associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness." The big difference is that the simple=F option allows variables to be linked to both factors, greatly complicating the interpretation. This is remedied by increasing the cutoff, omitting variables which are weakly associated with one or both factors. There is an associated decrease in parsimony, since it is implie that these variables correspond to additional latent factors that we have not accounted for.
 
+\pagebreak
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
 
 ```{r p6_a, dependon="p5_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
@@ -115,11 +120,12 @@ top.uv2 <- t(data.frame(u.vals[1:6], u.vals2[1:6]))
 rownames(top.uv2) <- c("Varimax Uniqueness", "Promax Uniqueness")
 emphasize.strong.cols(c(1,2))
 
-pander(top.uv2, caption = "First 8 Uniquenesses")
+pander(top.uv2, caption = "First 6 Uniquenesses")
 ```
 
-The uniquenesses do not change because the rotation is simply a change of basis which can change the factors a variable is associated with but does not affect the amount of variation explained by all the factors.
+The uniquenesses do not change because the rotation is simply a change of basis. This can change which factors a variable is associated with, but does not affect the amount of variation explained by all the factors.
 
+\pagebreak
 8) _Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions?_
 
 ```{r p8_a, dependon="p6_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
@@ -130,18 +136,22 @@ fa.diagram(fa.promax, simple=F)
 mtext("Promax", 3, 1)
 ```
 
-By default, loadings less than 0.3 in absolute value are not shown.
+The plot on the left shows the varimax result and the plot on the right shows the promax result, both using the default cutoff of 0.3. Since we specified simple=F, double loadings are shown in the plots. The varimax rotation results in many double loadings, and in many cases the weaker loading for the variable is negative. The promax solution has only one double loading, and it is positive. The negative associations are instead represented by the negative correlation between the latent factors, which makes the promax solution easier to interpret.
+
 
 ## R Code Appendix:
 Problem 1:
 ```{r a1, ref.label='p1_a', eval=F, echo=T}
 ```
 
+```{r b1, ref.label='p1_b', eval=F, echo=T}
+```
 
 Problem 2:
 ```{r a2, ref.label='p2_a', eval=F, echo=T}
 ```
 
+\pagebreak
 Problem 4:
 ```{r a4, ref.label='p4_a', eval=F, echo=T}
 ```
