@@ -60,13 +60,13 @@ fa.varimax <- fa(tc2, rotate="varimax", nfactors=2)
 fa.diagram(fa.varimax, simple=T)
 ```
 
-MR1 is positively associated with all of the temperature variables, and has negative associations with the summer snowpack and precipitation variables (with the exception of June precipitation). This is the overall temparature factor.
+MR1 is positively associated with all of the temperature variables, and has negative associations with the summer snowpack and precipitation variables (with the exception of June precipitation). This is the overall temperature factor.
 
 MR2 is positively associated with all the remaining variables; however, the association with June precipitation is weak ($\lambda=0.4)$. The other variables are precipitation and snowpack for fall, winter, and spring, so MR2 is the winteriness factor.
 
 3) _What does the likelihood ratio test suggest about a two factor solution in this output? Make sure to report hypotheses tested, test statistic, distribution under the null, and p-value._
 
-The likelihood ratio test evaluates the data under the null model that two factors are sufficient, with a distributional assumption of $\chi^2_{`r fa.varimax$null.dof`}$.  The test statistic is $\chi^2_{`r fa.varimax$dof`} = `r fa.varimax$STATISTIC`$, and the resultant p-value is less than 0.0001, suggesting that two factors are not sufficient for these data.
+The likelihood ratio test evaluates the data under the null model that two factors are sufficient, with a distributional assumption of $\chi^2_{`r fa.varimax$null.dof`}$.  The test statistic is $\chi^2_{`r fa.varimax$dof`} = `r signif(fa.varimax$STATISTIC, 4)`$, and the resultant p-value is less than 0.0001, suggesting that two factors are not sufficient for these data.
 
 
 
@@ -84,7 +84,7 @@ emphasize.strong.cols(c(1,2))
 pander(top.uv, caption = "First 8 Uniquenesses")
 ```
 
-The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.  Since $\hat{u}_i^2= 1 - \hat{h}_i^2$, where $\hat{h}_i^2$ is the communality of the ith variable, we could also arrive at this conclusion by finding the two smallest communalities.
+The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.  Since $\hat{u}_i^2= 1 - \hat{h}_i^2$, where $\hat{h}_i^2$ is the communality of the $i$th variable, we could also arrive at this conclusion by finding the two smallest communalities.
 
 5) _Now make a path diagram with the simple=F option but try cutting off displaying paths with the option cut=0.4 and then cut=0.5. Discuss generally how things changed. Do not attempt a detailed interpretation of the solution but do discuss whether your previous names of the factors would need to change based on this updated diagram._
 
@@ -96,7 +96,7 @@ fa.diagram(fa.varimax, simple=F, cut = 0.5)
 mtext(expression("Cutoff: "*lambda==0.5), 3, 1)
 ```
 
-The pattern of which variables are most closely associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness." The big difference is that the simple=F option allows variables to be linked to both factors, greatly complicating the interpretation. This is remedied by increasing the cutoff, omitting variables which are weakly associated with one or both factors. There is an associated decrease in parsimony, since it is implie that these variables correspond to additional latent factors that we have not accounted for.
+The pattern of which variables are most closely associated with which factors has not changed from problem 2, so the factors can still be described as "overall temperature" and "winteriness." The big difference is that the simple=F option allows variables to be linked to both factors, greatly complicating the interpretation. This is remedied by increasing the cutoff, omitting variables which are weakly associated with one or both factors. There is an associated decrease in parsimony, since it is implied that these variables correspond to additional latent factors that we have not accounted for.
 
 \pagebreak
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
@@ -110,7 +110,7 @@ fa.diagram(fa.promax, simple=T)
 mtext("Promax", 3, 1)
 ```
 
-Each latent factor is associated with the same manifest variables as before, but now the factors have a moderate negative correlation of -0.6. The signs of the loadings are the same, but the magnitudes of the largest loadings are now slightly larger. MR1 is still "overall temperature" and MR2 is still "winteriness" but the promax solution tells us that higher winteriness is associated with lower temperatures.
+Each latent factor is associated with the same manifest variables as before, but now the factors have a moderate negative correlation of -0.6. The associations between variables and factors have the same directions, but the strengths of the largest of these are now slightly bigger. MR1 is still "overall temperature" and MR2 is still "winteriness" but the promax solution tells us that higher winteriness is associated with lower temperatures.
 
 7) _Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result._
 
