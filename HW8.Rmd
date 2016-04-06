@@ -102,10 +102,16 @@ The pattern of which variables are most closely associated with which factors ha
 
 6) _Consider a promax rotation with 2 factors and remake the simple=T path diagram. How did the two factors change? Provide names for the two factors if they are different from the varimax version._
 
-```{r p6_a, dependon="p1_a", fig.height=3, fig.width=3, out.width="4.5in", out.height="4.5in"}
+```{r p6_a, dependon="p5_a", fig.height=3, fig.width=4.5, out.width="4.5in", out.height="4.5in"}
+par(mfrow = c(1, 2))
 fa.promax <- fa(tc2, rotate="promax", nfactors=2)
+fa.diagram(fa.varimax, simple=T)
+mtext("Varimax", 3, 1)
 fa.diagram(fa.promax, simple=T)
+mtext("Promax", 3, 1)
 ```
+
+Each latent factor is associated with the same manifest variables as before, but now the factors have a moderate negative correlation of -0.6. The signs of the loadings are the same, but the magnitudes of the largest loadings are now slightly larger. MR1 is still "overall temperature" and MR2 is still "winteriness" but the promax solution tells us that higher winteriness is associated with lower temperatures.
 
 7) _Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result._
 
