@@ -120,6 +120,8 @@ emphasize.strong.cols(c(1,2))
 pander(top.uv2, caption = "First 8 Uniquenesses")
 ```
 
+The uniquenesses do not change because the rotation is simply a change of basis which can change the factors a variable is associated with but does not affect the amount of variation explained by all the factors.
+
 8) _Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions?_
 
 The default cutoff is 0.3.
