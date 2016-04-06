@@ -35,15 +35,12 @@ tc1_r<-tc1[,c(4:39,64:75)]
 tc2<-tc1_r[,-c(43,44)]
 
 require(GPArotation) #Or else you'll have problems with fa()
-
 ```
 
 1) _Use fa.parallel from the psych package to consider how many factors you should use with the Q=46 variables. Discuss the results. How many factors would you use and why?_
 
 ```{r p1_a}
 fa2 <- fa.parallel(tc2)
-```
-```{r p1_b}
 eigentable <- rbind(Eigenvalue = fa2$fa.values,
                     Proportion = (fa2$fa.values^2)/sum(fa2$fa.values^2),
                     `Cum. Prop.` = cumsum(fa2$fa.values^2)/sum(fa2$fa.values)^2)
@@ -74,14 +71,13 @@ The likelihood ratio test evaluates the data under the null model that two facto
 
 4) _In this solution, which two manifest variables are least explained? How did you determine this?_
 
-```{r p4_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+```{r p4_a}
 u.vals <- sort(fa.varimax$uniquenesses, decreasing = T)
 top.uv <- t(data.frame(u.vals[1:8]))
 rownames(top.uv) <- "Uniqueness"
 emphasize.strong.cols(c(1,2))
 
 pander(top.uv, caption = "First 8 Uniquenesses")
-
 ```
 
 The uniquenesses associated with __pack6__ and __ppt5__ are the largest, so these are the least explained of the manifest variables under this model.
@@ -115,18 +111,21 @@ Each latent factor is associated with the same manifest variables as before, but
 
 7) _Check your two poorly explained manifest variables. Did the amount of their variation explained change or remain the same? Explain this result._
 
-```{r p7_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+```{r p7_a, dependson="p4_a"}
+u.vals2 <- sort(fa.promax$uniquenesses, decreasing = T)
+top.uv2 <- t(data.frame(u.vals[1:6], u.vals2[1:6]))
+rownames(top.uv2) <- c("Varimax Uniqueness", "Promax Uniqueness")
+emphasize.strong.cols(c(1,2))
 
-
+pander(top.uv2, caption = "First 8 Uniquenesses")
 ```
 
 8) _Repeat the path diagram with simple=F, leaving the path display cutoff at the default setting. What is the default cutoff setting? How did the promax non-simple display compare to the results from varimax? How can you explain these differences in complexity of solutions?_
 
 The default cutoff is 0.3.
 
-```{r p8_a, echo=F, warning=F, message=F, cache=T, fig.height=8, fig.width=8}
+```{r p8_a}
 fa.diagram(fa.promax, simple=F)
-
 ```
 
 ## R Code Appendix:
